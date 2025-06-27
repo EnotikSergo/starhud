@@ -1,0 +1,16 @@
+{
+  "text.autoconfig.starhud.category.money": "Баланс денег",
+  "text.autoconfig.starhud.option.moneySettings.shouldRender": "Показывать баланс на экране",
+  "text.autoconfig.starhud.option.moneySettings.originX": "Горизонтальное выравнивание",
+  "text.autoconfig.starhud.option.moneySettings.originY": "Вертикальное выравнивание",
+  "text.autoconfig.starhud.option.moneySettings.x": "Отступ по X",
+  "text.autoconfig.starhud.option.moneySettings.y": "Отступ по Y",
+  "text.autoconfig.starhud.option.moneySettings.scale": "Масштаб иконок",
+  "text.autoconfig.starhud.option.moneySettings.hideOn": "Режим отображения",
+  "text.autoconfig.starhud.option.moneySettings.hideOn.f3": "Прятать при F3",
+  "text.autoconfig.starhud.option.moneySettings.hideOn.chat": "Прятать при открытом чате",
+
+  "text.autoconfig.starhud.option.moneySettings.moneyCategories": "Категории баланса для отображения",
+  "text.autoconfig.starhud.option.moneySettings.moneyCategories.privateAccount": "Личный счёт",
+  "text.autoconfig.starhud.option.moneySettings.moneyCategories.teamAccount": "Клановый счёт"
+}

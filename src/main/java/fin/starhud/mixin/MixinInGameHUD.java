@@ -2,6 +2,7 @@ package fin.starhud.mixin;
 
 import fin.starhud.Main;
 import fin.starhud.hud.*;
+import fin.starhud.hud.shield.*;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
@@ -26,5 +27,6 @@ public class MixinInGameHUD {
         if (Main.settings.directionSettings.shouldRender) direction.renderDirectionHUD(context);
         if (Main.settings.biomeSettings.shouldRender) biome.renderBiomeIndicatorHUD(context);
         if (Main.settings.inventorySettings.shouldRender) inventory.renderInventoryHUD(context);
+        if (Main.settings.moneySettings.shouldRender) Money.renderMoneyHUD(context);
     }
 }

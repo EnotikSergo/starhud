@@ -224,6 +224,45 @@ public class Settings implements ConfigData {
         }
     }
 
+    @ConfigEntry.Category("money")
+    @ConfigEntry.Gui.TransitiveObject
+    public MoneySettings moneySettings = new MoneySettings();
+    public static class MoneySettings {
+        @Comment("Toggle Money HUD")
+        public boolean shouldRender = true;
+
+        @Comment("Money HUD default Horizontal location")
+        @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+        public Helper.ScreenAlignmentX originX = Helper.ScreenAlignmentX.RIGHT;
+
+        @Comment("Money HUD default Vertical location")
+        @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+        public Helper.ScreenAlignmentY originY = Helper.ScreenAlignmentY.BOTTOM;
+
+        public int x = -5;
+        public int y = -60;
+
+        @ConfigEntry.BoundedDiscrete(max = 6)
+        @Comment("Set to 0 for default GUI Scale")
+        public int scale = 0;
+
+        @ConfigEntry.Gui.CollapsibleObject
+        public MoneyCategories moneyCategories = new MoneyCategories();
+        public static class MoneyCategories {
+            @Comment("Показывать баланс личного счета")
+            public boolean privateAccount = true;
+            @Comment("Показывать баланс кланового счета")
+            public boolean teamAccount = true;
+        }
+
+        @ConfigEntry.Gui.CollapsibleObject
+        public MoneySettings.MoneyHideSettings hideOn = new MoneySettings.MoneyHideSettings();
+        public static class MoneyHideSettings {
+            public boolean f3 = false;
+            public boolean chat = false;
+        }
+    }
+
     @ConfigEntry.Category("ping")
     @ConfigEntry.Gui.TransitiveObject
     public PingSettings pingSettings = new PingSettings();

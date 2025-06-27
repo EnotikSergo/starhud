@@ -215,5 +215,21 @@
 
   "text.autoconfig.starhud.option.handSettings.rightHandSettings.hideOn": "Hide The HUD On",
   "text.autoconfig.starhud.option.handSettings.rightHandSettings.hideOn.f3": "Hide on F3",
-  "text.autoconfig.starhud.option.handSettings.rightHandSettings.hideOn.chat": "Hide on Chat"
+  "text.autoconfig.starhud.option.handSettings.rightHandSettings.hideOn.chat": "Hide on Chat",
+
+
+  "text.autoconfig.starhud.category.money": "Money balance",
+  "text.autoconfig.starhud.option.moneySettings.shouldRender": "Show Money HUD",
+  "text.autoconfig.starhud.option.moneySettings.originX": "Horizontal Alignment",
+  "text.autoconfig.starhud.option.moneySettings.originY": "Vertical Alignment",
+  "text.autoconfig.starhud.option.moneySettings.x": "X Offset",
+  "text.autoconfig.starhud.option.moneySettings.y": "Y Offset",
+  "text.autoconfig.starhud.option.moneySettings.scale": "HUD Scale",
+  "text.autoconfig.starhud.option.moneySettings.hideOn": "Hide The HUD On",
+  "text.autoconfig.starhud.option.moneySettings.hideOn.f3": "Hide on F3",
+  "text.autoconfig.starhud.option.moneySettings.hideOn.chat": "Hide on Chat",
+
+  "text.autoconfig.starhud.option.moneySettings.moneyCategories": "Money categories to render",
+  "text.autoconfig.starhud.option.moneySettings.moneyCategories.privateAccount": "Private account balance",
+  "text.autoconfig.starhud.option.moneySettings.moneyCategories.teamAccount": "Clan account balance"
 }
