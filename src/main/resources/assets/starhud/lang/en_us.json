@@ -330,5 +330,17 @@
   "text.autoconfig.starhud.option.speedSettings.base.conditions": "Conditions",
   "text.autoconfig.starhud.option.speedSettings.color": "Color",
   "text.autoconfig.starhud.option.speedSettings.useFullSpeed": "Use Full Speed",
-  "text.autoconfig.starhud.option.speedSettings.additionalString": "Extra Label"
+  "text.autoconfig.starhud.option.speedSettings.additionalString": "Extra Label",
+
+  "text.autoconfig.starhud.category.money": "Money balance",
+  "text.autoconfig.starhud.option.moneySettings.moneyPrivateSetting": "Private account",
+  "text.autoconfig.starhud.option.moneySettings.moneyPrivateSetting.base.shouldRender": "Show Private balance HUD",
+  "text.autoconfig.starhud.option.moneySettings.moneyPrivateSetting.base.conditions": "Conditions",
+  "text.autoconfig.starhud.option.moneySettings.moneyPrivateSetting.stackFormat": "Stack balance",
+  "text.autoconfig.starhud.option.moneySettings.moneyPrivateSetting.diamondsDisplay": "Diamonds display",
+  "text.autoconfig.starhud.option.moneySettings.moneyTeamSetting": "Clan account",
+  "text.autoconfig.starhud.option.moneySettings.moneyTeamSetting.base.shouldRender": "Show Clan balance HUD",
+  "text.autoconfig.starhud.option.moneySettings.moneyTeamSetting.base.conditions": "Conditions",
+  "text.autoconfig.starhud.option.moneySettings.moneyTeamSetting.stackFormat": "Stack balance",
+  "text.autoconfig.starhud.option.moneySettings.moneyTeamSetting.diamondsDisplay": "Diamonds display"
 }

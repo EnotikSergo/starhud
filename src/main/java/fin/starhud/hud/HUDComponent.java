@@ -79,6 +79,9 @@ public class HUDComponent {
 
         registerHUD(new PositiveEffectHUD());
         registerHUD(new NegativeEffectHUD());
+
+        registerHUD(new MoneyPrivateHUD());
+        registerHUD(new MoneyTeamHUD());
     }
 
     public Map<String, AbstractHUD> getHudMap() {
