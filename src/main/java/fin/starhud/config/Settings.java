@@ -117,6 +117,18 @@ public class Settings implements ConfigData {
         public ClockInGameSettings inGameSetting = new ClockInGameSettings();
     }
 
+    @ConfigEntry.Category("money")
+    @ConfigEntry.Gui.TransitiveObject
+    public Money moneySettings = new Money();
+
+    public static class Money {
+        @ConfigEntry.Gui.CollapsibleObject
+        public MoneyPrivateSettings moneyPrivateSetting = new MoneyPrivateSettings();
+
+        @ConfigEntry.Gui.CollapsibleObject
+        public MoneyTeamSettings moneyTeamSetting = new MoneyTeamSettings();
+    }
+
     @ConfigEntry.Category("day")
     @ConfigEntry.Gui.TransitiveObject
     public DaySettings daySettings = new DaySettings();
@@ -272,6 +284,14 @@ public class Settings implements ConfigData {
         ClockInGameSettings inGameSetting = clockSettings.inGameSetting;
         if (inGameSetting.base == null)
             clockSettings.inGameSetting = new ClockInGameSettings();
+
+        MoneyPrivateSettings moneyPrivateSetting = moneySettings.moneyPrivateSetting;
+        if (moneyPrivateSetting.base == null)
+            moneySettings.moneyPrivateSetting = new MoneyPrivateSettings();
+
+        MoneyTeamSettings moneyTeamSetting = moneySettings.moneyTeamSetting;
+        if (moneyTeamSetting.base == null)
+            moneySettings.moneyTeamSetting = new MoneyTeamSettings();
 
         if (daySettings.base == null)
             daySettings = new DaySettings();
