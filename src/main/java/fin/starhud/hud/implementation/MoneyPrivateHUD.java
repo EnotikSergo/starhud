@@ -26,7 +26,7 @@ public class MoneyPrivateHUD extends AbstractHUD {
 
     private static String cachedPrivateMoneyString = null;
     private static String cachedTeamMoneyString = null;
-    private static long cachedMinute = -1;
+    private static long lastUpdate = -1;
 
     private static int cachedPrivateColor = 0xFFFFFFFF;
 
@@ -47,17 +47,22 @@ public class MoneyPrivateHUD extends AbstractHUD {
     @Override
     public boolean collectHUDInformation() {
         long currentTime = System.currentTimeMillis();
-        long minute = currentTime / 60000;
+        if (currentTime - lastUpdate >= 15000) {
+            lastUpdate = currentTime;
+            if(MONEY_PRIVATE_SETTING.privateValue == -1) lastUpdate = 15000;
 
-        if (minute != cachedMinute) {
-            cachedMinute = minute;
-
-            if (MONEY_PRIVATE_SETTING.privateValue != null && MONEY_TEAM_SETTING.teamValue != null) {
-                cachedTeamMoneyString = MoneyTeamHUD.formatMoney(MONEY_TEAM_SETTING.teamValue);
+            if (MONEY_PRIVATE_SETTING.privateValue != -1) {
+                cachedTeamMoneyString = MONEY_TEAM_SETTING.teamValue !=-1?MoneyTeamHUD.formatMoney(MONEY_TEAM_SETTING.teamValue):null;
                 cachedPrivateMoneyString = formatMoney(MONEY_PRIVATE_SETTING.privateValue);
                 cachedPrivateColor = getBalanceColor(MONEY_PRIVATE_SETTING.privateValue);
+            } else {
+                cachedTeamMoneyString = null;
+                cachedPrivateMoneyString = null;
+                cachedPrivateColor = 0xFFFFFFFF;
             }
         }
+        if(cachedPrivateMoneyString == null) return false;
+        if(MONEY_PRIVATE_SETTING.privateValue == -1) return false;
         displayMode = getSettings().getDisplayMode();
 
         int width;
@@ -77,9 +82,9 @@ public class MoneyPrivateHUD extends AbstractHUD {
         int w = getWidth();
         int h = getHeight();
 
-        return RenderUtils.drawSmallHUD(
+        RenderUtils.drawSmallHUD(
                 context,
-                cachedPrivateMoneyString,
+                "",
                 x, y,
                 w, h,
                 MONEY_TEXTURE,
@@ -91,6 +96,36 @@ public class MoneyPrivateHUD extends AbstractHUD {
                 displayMode,
                 drawBackground
         );
+
+        HUDDisplayMode mode = displayMode;
+        if (mode == HUDDisplayMode.ICON) {
+            return true;
+        }
+
+        int padding = 6;
+        int textX = x + (mode == HUDDisplayMode.BOTH ? (ICON_WIDTH + padding) : padding - 1);
+        int textY = y + 3;
+
+        drawColoredMoneyText(context, cachedPrivateMoneyString, textX, textY, cachedPrivateColor);
+
+        return true;
+    }
+
+    private static void drawColoredMoneyText(DrawContext context, String text, int x, int y, int baseColor) {
+        var renderer = MinecraftClient.getInstance().textRenderer;
+        int offsetX = x;
+
+        for (char c : text.toCharArray()) {
+            int color = (c == 'А' || c == 'Б' || c == 'а') ? 0xFF3AD762 : baseColor;
+            String s = String.valueOf(c);
+            if(MONEY_PRIVATE_SETTING.privateValue == 0)
+            {
+                color = c == 'а' ? 0xFFBB3434 : baseColor;
+                context.drawText(renderer, s, offsetX, y, color, true);
+            }
+            else context.drawText(renderer, s, offsetX, y, color, true);
+            offsetX += renderer.getWidth(s);
+        }
     }
 
     private static int getBalanceColor(int balance) {
@@ -101,16 +136,9 @@ public class MoneyPrivateHUD extends AbstractHUD {
     static String formatMoney(int money) {
         int ab = money / 9;
         StringBuilder result = new StringBuilder();
-
-        if (money < 9) {
-            return money + "А";
-        }
-        if(!MONEY_PRIVATE_SETTING.stackFormat) {
-            if (MONEY_PRIVATE_SETTING.diamondsDisplay) {
-                return ab + "АБ(" + money + "А)";
-            } else return ab + "АБ";
-        }
-        else {
+        if (money == -1) return "Загрузка...";
+        if (money < 9) return money + "а";
+        if(MONEY_PRIVATE_SETTING.stackFormat) {
             if (ab > 64) {
                 int stack = money / 576;
                 int diam = money % 576;
@@ -123,19 +151,22 @@ public class MoneyPrivateHUD extends AbstractHUD {
                     result.append("+");
                     result.append(kl_ab).append("АБ");
                 } else result.append("АБ");
-                if(MONEY_PRIVATE_SETTING.diamondsDisplay) {
-                    result.append("(").append(money).append("А)");
-                }
             }
-            else return ab + "АБ";
+            else result.append(ab).append("АБ");
         }
+        if (MONEY_PRIVATE_SETTING.diamondsDisplay) {
+            if(MONEY_PRIVATE_SETTING.stackFormat)
+            {
+                result.append(" (").append(money).append("а)");
+            } else result.append(ab).append("АБ").append(" (").append(money).append("а)");
+        } else if(!MONEY_PRIVATE_SETTING.stackFormat) return ab + "АБ";
         return result.toString();
     }
 
     @Override
     public void update() {
         super.update();
-        cachedMinute = -1;
+        lastUpdate = -1;
         cachedPrivateColor = -1;
     }
 }

@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
 import net.minecraft.client.option.KeyBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class Main implements ClientModInitializer {
 
@@ -24,6 +25,7 @@ public class Main implements ClientModInitializer {
 
     public static KeyBinding openEditHUDKey;
     public static KeyBinding toggleHUDKey;
+    public static long moneyUpdatedAt = 0;
 
     @Override
     public void onInitializeClient() {
@@ -40,7 +42,13 @@ public class Main implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(MoneyDataPayload.ID, (payload, context) -> {
             MoneyPrivateSettings.privateValue = payload.privateBalance();
             MoneyTeamSettings.teamValue = payload.teamBalance().orElse(null);
+            moneyUpdatedAt = System.currentTimeMillis();
+        });
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (System.currentTimeMillis() - moneyUpdatedAt > 20000) {
+                MoneyPrivateSettings.privateValue = -1;
+                MoneyTeamSettings.teamValue = -1;
+            }
         });
     }
-
 }
